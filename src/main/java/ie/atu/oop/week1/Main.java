@@ -5,14 +5,15 @@ public class Main {
 
 
     public static void main(String[] args) {
-        try {
-            Book myBook = new Book("Dune", "Frank", 10);
-            System.out.println("Creating a new Book");
-        }
 
-        catch (IllegalArgumentException ex) {
-            System.out.println("Error: " + ex.getMessage());
-        }
+            Book book = new Book("Dune", "Frank", 10);
+            book.borrowBook();
+            try {
+                book.borrowBook();
+            } catch(IllegalStateException ex) {
+                System.out.println(ex.getMessage());
+            }
+        System.out.println(book.getStatus());
 
     }
 }

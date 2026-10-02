@@ -30,10 +30,6 @@ public class Book {
         this.status = BookStatus.AVAILABLE;
     }
 
-    public BookStatus getStatus() {
-        return status;
-    }
-
     public String getTitle() {
 
         return title;
@@ -49,4 +45,15 @@ public class Book {
         return pageCount;
     }
 
+    public BookStatus getStatus() {
+        return status;
+    }
+
+    public void borrowBook() {
+        if (status == BookStatus.ON_LOAN){
+            throw new IllegalStateException("Book is already on loan");
+
+        }
+        status = BookStatus.ON_LOAN;
+    }
 }
