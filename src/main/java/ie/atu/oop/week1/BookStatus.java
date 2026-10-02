@@ -2,5 +2,5 @@ package ie.atu.oop.week1;
 
 public enum BookStatus {
     AVAILABLE,
-    ON_LO0AN
+    ON_LOAN
 }

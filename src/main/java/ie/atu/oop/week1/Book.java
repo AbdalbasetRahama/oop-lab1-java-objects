@@ -1,9 +1,9 @@
 package ie.atu.oop.week1;
 
 public class Book {
-    private String title;
-    private  String author;
-    private int pageCount;
+    private final String title;
+    private final String author;
+    private final int pageCount;
     private  BookStatus status;
 
     public Book(String title, String author, int pageCount)
@@ -27,21 +27,25 @@ public class Book {
         this.title = title;
         this.author = author;
         this.pageCount = pageCount;
-        this status = BookStatus.AVAILABLE;
+        this.status = BookStatus.AVAILABLE;
     }
 
     public BookStatus getStatus() {
         return status;
     }
+
     public String getTitle() {
+
         return title;
     }
 
     public String getAuthor() {
+
         return author;
     }
 
     public int getPageCount() {
+
         return pageCount;
     }
 
