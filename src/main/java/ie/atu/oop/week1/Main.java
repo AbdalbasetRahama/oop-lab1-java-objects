@@ -6,14 +6,17 @@ public class Main {
 
     public static void main(String[] args) {
 
-            Book book = new Book("Dune", "Frank", 10);
-            book.borrowBook();
-            try {
-                book.borrowBook();
-            } catch(IllegalStateException ex) {
-                System.out.println(ex.getMessage());
-            }
-        System.out.println(book.getStatus());
+        Book mybook = new Book("Dune", "Frank", 412);
+        mybook.borrowBook();
+        mybook.returnBook();
 
+        try {
+            mybook.returnBook();
+
+        } catch(IllegalStateException ex) {
+            System.out.println(ex.getMessage());
+        }
+        System.out.println(mybook.getStatus());
     }
+
 }
