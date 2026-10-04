@@ -6,17 +6,26 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Book mybook = new Book("Dune", "Frank", 412);
-        mybook.borrowBook();
-        mybook.returnBook();
+        Book first = new Book("Dune", "Frank", 412);
+        Book second = new Book("Clean code", "Robert C.Martin", 464);
+        LibraryService service = new LibraryService();
+
+        System.out.println(first.getStatus());
+        service.loanBook(first,7);
+        System.out.println(first.getStatus());
+        first.returnBook();
+        System.out.println(first.getStatus());
+        System.out.println(second.getStatus());
+
 
         try {
-            mybook.returnBook();
+           service.loanBook(first,14);
 
-        } catch(IllegalStateException ex) {
+        } catch(IllegalStateException ex)
+        {
             System.out.println(ex.getMessage());
         }
-        System.out.println(mybook.getStatus());
+        System.out.println(first.getStatus());
     }
 
 }
