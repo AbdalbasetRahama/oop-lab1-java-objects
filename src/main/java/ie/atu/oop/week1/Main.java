@@ -1,39 +1,26 @@
 package ie.atu.oop.week1;
 
+
 public class Main {
 
 
     public static void main(String[] args) {
-        Book firstbook = new Book();
-        firstbook.title = "Dune";
-        firstbook.author = "Frank Herbert";
-        firstbook.pageCount = 412;
+       Book first = new Book("Dune", "Frank Herbert", 412);
+        Book second = new Book("Clean Code", "Robert C.Martin", 464);
+        LibraryService service = new LibraryService();
 
-        //before loan
-        firstbook.displayDetails();
-        firstbook.borrowBook();
-        //after loan
-        firstbook.displayDetails();
+        System.out.println(first.getStatus());
+        service.loanBook(first,7);
+        System.out.println(first.getStatus());
+        first.returnBook();
+        System.out.println(first.getStatus());
+        System.out.println(second.getStatus());
 
-        Book secondBook  = createBook("clean code", "Dan Williams", 223);
-        Book thirdBook = createBook("Another book code", "John Murphy", 333);
-        Book fourthBook = createBook("Student Life", "Mary Shelly", 442);
-
-        System.out.println("\n");
-        secondBook.displayDetails();
-        System.out.println("\n");
-        thirdBook.displayDetails();
-        System.out.println("\n");
-        fourthBook.displayDetails();
+        try {
+            service.loanBook(first,15);
+        }catch(IllegalArgumentException ex){
+            System.out.println(ex.getMessage());
+        }
+        System.out.println(first.getStatus());
     }
-
-    private static Book createBook(String title, String author, int pageCount)
-    {
-      Book book = new Book();
-      book.title = title;
-      book.author = author;
-      book.pageCount = pageCount;
-      return book;
-    }
-
 }
