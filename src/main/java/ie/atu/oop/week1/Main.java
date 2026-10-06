@@ -1,6 +1,8 @@
 package ie.atu.oop.week1;
 
 
+import java.sql.SQLOutput;
+
 public class Main {
 
 
@@ -32,6 +34,10 @@ public class Main {
         if(missing == null) {
             System.out.println("The Hobbit was not found");
         }
+
+        System.out.println("Remove Clean Code:" + service.removeBook("Clean Code"));
+        System.out.println("Remove again:" + service.removeBook("Clean Code"));
+        System.out.println("Books left:" +service.getBookCount());
     }
 
 }

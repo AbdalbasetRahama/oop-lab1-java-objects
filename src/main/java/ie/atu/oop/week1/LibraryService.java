@@ -41,6 +41,14 @@ public class LibraryService {
         }
         return null;
     }
+    public boolean removeBook(String title) {
 
+            Book book = findBookByTitle(title);
+            if (book == null) {
+                return false;
+            }
 
+            books.remove(book);
+            return true;
+    }
 }
