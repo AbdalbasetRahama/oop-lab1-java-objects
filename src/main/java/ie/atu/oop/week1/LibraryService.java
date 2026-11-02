@@ -75,4 +75,7 @@ public class LibraryService {
         book.borrowBook();
         return true;
     }
+    public List<Book> getBooks() {
+        return new ArrayList<>(books);
+    }
 }
