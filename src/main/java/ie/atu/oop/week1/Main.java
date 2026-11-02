@@ -1,38 +1,45 @@
 package ie.atu.oop.week1;
 
+import java.io.IOException;
 import java.sql.SQLOutput;
+import java.nio.file.Path;
 
 public class Main {
 
 
-    public static void main(String[] args) {
-        Book dune = new Book("Dune", "Frank Herbert", 412);
-        Book nineteenEightyFour = new Book("1984", "George Orwell", 328);
-        Book cleanCode = new Book("Clean Code", "Robert C.Martin", 464);
+    public static void main(String[] args) {LibraryService service = new LibraryService();
+        BookFileStore store = new BookFileStore(
+                Path.of("data", "books.csv"));
 
-        LibraryService service = new LibraryService();
-
-        service.addBook(dune);
-        service.addBook(nineteenEightyFour);
-        service.addBook(cleanCode);
-
-        System.out.println("Counts:" + service.getBookCount());
-
-        Book found = service.findBookByTitle("Dune");
-        if(found != null) {
-            System.out.println("Found: " +found.getTitle());
+        try {
+            for (Book book : store.load()) {
+                service.addBook(book);
+            }
+            System.out.println("loaded: " + service.getBookCount());
+        } catch (IOException e) {
+            System.out.println("Load failed:  " + e.getMessage());
+            return;
         }
-        System.out.println("Loan Dune:" + service.loanBook("Dune", 7));
-        System.out.println("Dune status: "+ dune.getStatus());
 
-        System.out.println("Loan missing: "+ service.loanBook("The Hobbit", 7));
+        if (service.getBookCount() == 0) {
+            Book dune = new Book("Dune", "Frank Herbert", 412);
+            Book cleanCode = new Book("Clean Code", "Robert C.Martin", 464);
 
-        System.out.println("Return Dune: " + service.returnBook("Dune"));
-        System.out.println("Dune status: "+ dune.getStatus());
+            service.addBook(dune);
+            service.addBook(cleanCode);
+            service.loanBook("Dune", 7);
+        }
 
+        for (Book book : service.getBooks()) {
+            System.out.println(
+                    book.getTitle() + "-" + book.getStatus());
+        }
 
-        System.out.println("Remove Clean Code:" + service.removeBook("Clean Code"));
-        System.out.println("Final count:" +service.getBookCount());
+        try {
+            store.save(service.getBooks());
+            System.out.println("Saved: " + service.getBookCount());
+        } catch (IOException e) {
+            System.out.println("Save failed:  " + e.getMessage());
+        }
     }
-
 }
